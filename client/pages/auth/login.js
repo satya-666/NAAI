@@ -39,41 +39,41 @@ const LoginPage = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600"></div>
+      <div className="min-h-screen flex items-center justify-center bg-dark-900">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-4 border-gold-500"></div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-dark-900 flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="flex justify-center">
-          <div className="w-12 h-12 bg-gradient-to-r from-primary-600 to-gold-500 rounded-lg flex items-center justify-center">
-            <span className="text-white font-bold text-xl">B</span>
+          <div className="w-14 h-14 bg-gradient-to-br from-gold-500 to-gold-600 rounded-xl flex items-center justify-center shadow-gold-glow">
+            <span className="text-dark-900 font-bold text-2xl">B</span>
           </div>
         </div>
-        <h2 className="mt-6 text-center text-3xl font-bold text-gray-900">
+        <h2 className="mt-6 text-center text-3xl sm:text-4xl font-bold text-white">
           Sign in to your account
         </h2>
-        <p className="mt-2 text-center text-sm text-gray-600">
+        <p className="mt-2 text-center text-sm text-gray-400">
           Or{' '}
-          <Link href="/auth/register" className="font-medium text-primary-600 hover:text-primary-500">
+          <Link href="/auth/register" className="font-semibold text-gold-500 hover:text-gold-400 transition-colors">
             create a new account
           </Link>
         </p>
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+        <div className="card">
           <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="email" className="block text-sm font-semibold text-gray-300 mb-2">
                 Email address
               </label>
-              <div className="mt-1 relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Mail className="h-5 w-5 text-gray-400" />
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                  <Mail className="h-5 w-5 text-gray-500" />
                 </div>
                 <input
                   {...register('email', {
@@ -84,22 +84,22 @@ const LoginPage = () => {
                     }
                   })}
                   type="email"
-                  className="input-field pl-10"
+                  className="input-field pl-12"
                   placeholder="Enter your email"
                 />
               </div>
               {errors.email && (
-                <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>
+                <p className="mt-2 text-sm text-red-400">{errors.email.message}</p>
               )}
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="password" className="block text-sm font-semibold text-gray-300 mb-2">
                 Password
               </label>
-              <div className="mt-1 relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Lock className="h-5 w-5 text-gray-400" />
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                  <Lock className="h-5 w-5 text-gray-500" />
                 </div>
                 <input
                   {...register('password', {
@@ -110,23 +110,23 @@ const LoginPage = () => {
                     }
                   })}
                   type={showPassword ? 'text' : 'password'}
-                  className="input-field pl-10 pr-10"
+                  className="input-field pl-12 pr-12"
                   placeholder="Enter your password"
                 />
                 <button
                   type="button"
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                  className="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-500 hover:text-gold-500 transition-colors"
                   onClick={() => setShowPassword(!showPassword)}
                 >
                   {showPassword ? (
-                    <EyeOff className="h-5 w-5 text-gray-400" />
+                    <EyeOff className="h-5 w-5" />
                   ) : (
-                    <Eye className="h-5 w-5 text-gray-400" />
+                    <Eye className="h-5 w-5" />
                   )}
                 </button>
               </div>
               {errors.password && (
-                <p className="mt-1 text-sm text-red-600">{errors.password.message}</p>
+                <p className="mt-2 text-sm text-red-400">{errors.password.message}</p>
               )}
             </div>
 
@@ -136,16 +136,16 @@ const LoginPage = () => {
                   id="remember-me"
                   name="remember-me"
                   type="checkbox"
-                  className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
+                  className="h-4 w-4 text-gold-500 focus:ring-gold-500 border-dark-600 rounded bg-dark-700"
                 />
-                <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
+                <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-300">
                   Remember me
                 </label>
               </div>
 
               <div className="text-sm">
-                <Link href="/forgot-password" className="font-medium text-primary-600 hover:text-primary-500">
-                  Forgot your password?
+                <Link href="/forgot-password" className="font-semibold text-gold-500 hover:text-gold-400 transition-colors">
+                  Forgot password?
                 </Link>
               </div>
             </div>
@@ -154,7 +154,7 @@ const LoginPage = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full btn-primary disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation"
               >
                 {isSubmitting ? 'Signing in...' : 'Sign in'}
               </button>
@@ -164,23 +164,23 @@ const LoginPage = () => {
           <div className="mt-6">
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-300" />
+                <div className="w-full border-t border-dark-700" />
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-gray-500">Demo accounts</span>
+                <span className="px-3 bg-dark-800 text-gray-400 font-medium">Demo accounts</span>
               </div>
             </div>
 
             <div className="mt-6 grid grid-cols-1 gap-3">
-              <div className="bg-gray-50 p-4 rounded-lg">
-                <h4 className="font-medium text-gray-900 mb-2">Barber Account</h4>
-                <p className="text-sm text-gray-600 mb-2">john@barbershop.com</p>
-                <p className="text-sm text-gray-600">Password: password123</p>
+              <div className="bg-dark-700/50 p-4 rounded-xl border border-dark-600">
+                <h4 className="font-semibold text-white mb-2">Barber Account</h4>
+                <p className="text-sm text-gray-400 mb-1">john@barbershop.com</p>
+                <p className="text-sm text-gray-500">Password: password123</p>
               </div>
-              <div className="bg-gray-50 p-4 rounded-lg">
-                <h4 className="font-medium text-gray-900 mb-2">Customer Account</h4>
-                <p className="text-sm text-gray-600 mb-2">alice@email.com</p>
-                <p className="text-sm text-gray-600">Password: password123</p>
+              <div className="bg-dark-700/50 p-4 rounded-xl border border-dark-600">
+                <h4 className="font-semibold text-white mb-2">Customer Account</h4>
+                <p className="text-sm text-gray-400 mb-1">alice@email.com</p>
+                <p className="text-sm text-gray-500">Password: password123</p>
               </div>
             </div>
           </div>

@@ -8,42 +8,58 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: {
-          50: '#fef7ee',
-          100: '#fdedd3',
-          200: '#fad7a5',
-          300: '#f7ba6d',
-          400: '#f39333',
-          500: '#f0770a',
-          600: '#e15d05',
-          700: '#ba4508',
-          800: '#94370e',
-          900: '#772f0f',
-        },
-        barber: {
-          50: '#f8fafc',
-          100: '#f1f5f9',
-          200: '#e2e8f0',
-          300: '#cbd5e1',
-          400: '#94a3b8',
-          500: '#64748b',
-          600: '#475569',
-          700: '#334155',
-          800: '#1e293b',
-          900: '#0f172a',
-        },
+        // Premium Gold Palette
         gold: {
-          50: '#fffbeb',
-          100: '#fef3c7',
-          200: '#fde68a',
-          300: '#fcd34d',
-          400: '#fbbf24',
-          500: '#f59e0b',
-          600: '#d97706',
-          700: '#b45309',
-          800: '#92400e',
-          900: '#78350f',
-        }
+          50: '#fffef7',
+          100: '#fffaeb',
+          200: '#fef3c7',
+          300: '#fde68a',
+          400: '#fcd34d',
+          500: '#D4AF37', // Premium gold
+          600: '#B8941F',
+          700: '#9C7A19',
+          800: '#7A5F14',
+          900: '#5C4710',
+        },
+        // Rich Brown Palette
+        brown: {
+          50: '#fdf8f6',
+          100: '#f2e8e5',
+          200: '#eaddd7',
+          300: '#d9c4b8',
+          400: '#C19A6B', // Camel/tan
+          500: '#8B6F47', // Rich brown
+          600: '#6F5639',
+          700: '#5A442D',
+          800: '#3D2E1F',
+          900: '#2A1F15',
+        },
+        // Deep Black/Charcoal Palette
+        dark: {
+          50: '#f7f7f8',
+          100: '#e3e4e6',
+          200: '#c8c9cc',
+          300: '#a3a5a9',
+          400: '#6b6d72',
+          500: '#4a4c51',
+          600: '#2d2e32',
+          700: '#1f2023',
+          800: '#141517', // Rich black
+          900: '#0a0a0b', // Deep black
+        },
+        // Keep original primary for compatibility
+        primary: {
+          50: '#fffef7',
+          100: '#fffaeb',
+          200: '#fef3c7',
+          300: '#fde68a',
+          400: '#fcd34d',
+          500: '#D4AF37',
+          600: '#B8941F',
+          700: '#9C7A19',
+          800: '#7A5F14',
+          900: '#5C4710',
+        },
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
@@ -52,7 +68,10 @@ module.exports = {
       animation: {
         'fade-in': 'fadeIn 0.5s ease-in-out',
         'slide-up': 'slideUp 0.3s ease-out',
+        'slide-down': 'slideDown 0.3s ease-out',
+        'scale-in': 'scaleIn 0.2s ease-out',
         'bounce-slow': 'bounce 2s infinite',
+        'shimmer': 'shimmer 2s infinite',
       },
       keyframes: {
         fadeIn: {
@@ -63,6 +82,27 @@ module.exports = {
           '0%': { transform: 'translateY(10px)', opacity: '0' },
           '100%': { transform: 'translateY(0)', opacity: '1' },
         },
+        slideDown: {
+          '0%': { transform: 'translateY(-10px)', opacity: '0' },
+          '100%': { transform: 'translateY(0)', opacity: '1' },
+        },
+        scaleIn: {
+          '0%': { transform: 'scale(0.95)', opacity: '0' },
+          '100%': { transform: 'scale(1)', opacity: '1' },
+        },
+        shimmer: {
+          '0%': { backgroundPosition: '-1000px 0' },
+          '100%': { backgroundPosition: '1000px 0' },
+        },
+      },
+      boxShadow: {
+        'gold-glow': '0 0 20px rgba(212, 175, 55, 0.3)',
+        'gold-glow-lg': '0 0 30px rgba(212, 175, 55, 0.4)',
+        'dark-lg': '0 10px 40px rgba(0, 0, 0, 0.5)',
+        'dark-xl': '0 20px 60px rgba(0, 0, 0, 0.6)',
+      },
+      backdropBlur: {
+        xs: '2px',
       },
     },
   },
