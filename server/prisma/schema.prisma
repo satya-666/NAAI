@@ -1,0 +1,145 @@
+// This is your Prisma schema file for MySQL
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             Int       @id @default(autoincrement())
+  name           String
+  email          String    @unique
+  password       String
+  role           Role      @default(customer)
+  profilePicture String?
+  phone          String?
+  isActive       Boolean   @default(true)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  // Relations
+  shops          Shop[]
+  bookings       Booking[]
+  reviews        Review[]
+
+  @@index([email])
+}
+
+model Shop {
+  id                 Int       @id @default(autoincrement())
+  barberId           Int
+  shopName           String
+  description        String?   @db.Text
+  
+  // Location
+  address            String
+  latitude           Float
+  longitude          Float
+  city               String
+  state              String
+  zipCode            String
+  
+  // Contact
+  phone              String
+  email              String?
+  
+  // Services (JSON field)
+  services           Json      // Array of {name, description, price, duration}
+  
+  // Photos
+  photos             Json?     // Array of photo URLs
+  
+  // Operating Hours (JSON field)
+  operatingHours     Json?     // {monday: {open, close, closed}, ...}
+  
+  currentWaitingTime Int       @default(0)
+  averageRating      Float     @default(0)
+  totalReviews       Int       @default(0)
+  isActive           Boolean   @default(true)
+  isOpen             Boolean   @default(true)
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+
+  // Relations
+  barber             User      @relation(fields: [barberId], references: [id], onDelete: Cascade)
+  bookings           Booking[]
+  reviews            Review[]
+
+  @@index([barberId])
+  @@index([city, state])
+  @@index([latitude, longitude])
+}
+
+model Booking {
+  id                   Int            @id @default(autoincrement())
+  customerId           Int
+  shopId               Int
+  
+  // Service details (JSON field)
+  service              Json           // {name, price, duration}
+  
+  appointmentDate      DateTime
+  appointmentTime      String
+  status               BookingStatus  @default(pending)
+  notes                String?        @db.Text
+  estimatedWaitingTime Int            @default(0)
+  actualStartTime      DateTime?
+  actualEndTime        DateTime?
+  totalAmount          Float
+  paymentStatus        PaymentStatus  @default(pending)
+  createdAt            DateTime       @default(now())
+  updatedAt            DateTime       @updatedAt
+
+  // Relations
+  customer             User           @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  shop                 Shop           @relation(fields: [shopId], references: [id], onDelete: Cascade)
+  review               Review?
+
+  @@index([customerId, appointmentDate])
+  @@index([shopId, appointmentDate])
+  @@index([status])
+}
+
+model Review {
+  id         Int      @id @default(autoincrement())
+  customerId Int
+  shopId     Int
+  bookingId  Int      @unique
+  rating     Int      // 1-5
+  comment    String?  @db.Text
+  photos     Json?    // Array of photo URLs
+  isVerified Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  // Relations
+  customer   User     @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  shop       Shop     @relation(fields: [shopId], references: [id], onDelete: Cascade)
+  booking    Booking  @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+
+  @@index([shopId, createdAt])
+}
+
+// Enums
+enum Role {
+  customer
+  barber
+}
+
+enum BookingStatus {
+  pending
+  confirmed
+  in_progress
+  completed
+  cancelled
+  no_show
+}
+
+enum PaymentStatus {
+  pending
+  paid
+  refunded
+}
